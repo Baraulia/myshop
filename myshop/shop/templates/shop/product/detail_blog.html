@@ -1,0 +1,14 @@
+{% extends 'shop/base.html'%}
+{% load static %}
+{% block title %}
+    Блог
+{% endblock %}
+{% block content %}
+    <div class="product-detail">
+        <img class="item-img" src="{% if message.image %}{{message.image.url}} {% else %} {%static 'img/no_image.png'%} {%endif%}" alt="">
+        <h1>{{message.author}}</h1>
+        {{message.content|linebreaks}}
+        {{message.created}}
+    </div>
+
+{% endblock %}

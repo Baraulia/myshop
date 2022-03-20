@@ -1,0 +1,35 @@
+{% extends 'shop/base.html'%}
+{% load static %}
+{% block title %}
+    {% if category %}{{ category.title }} {% else %}Книга{% endif %}
+{% endblock %}
+{% block content %}
+<div class="sidebar">
+    <h3>Жанры</h3>
+        <ul class="navbar">
+            <li {% if not ganr %} class="selected" {% endif %}>
+
+                <a href="{%url 'shop:book_list'%}">Все жанры</a>
+            </li>
+             {% for c in genris %}
+                 <li {% if ganr.slug == c.slug %} class="selected"{% endif %}>
+                     <a href="{% url 'shop:book_list' genre_slug=c.slug %}">{{c.name}}</a>
+                 </li>
+             {% endfor %}
+        </ul>
+
+</div>
+    <div class="product-detail">
+        <img class="item-img" src="{% if book.image %}{{book.image.url}} {% else %} {%static 'img/no_image.png'%} {%endif%}" alt="">
+        <h1>{{book.name}}</h1>
+        <h2><a href="{{book.genre.get_absolut_url}}">{{book.genre}}</a></h2>
+        <p class="price">$<strong>{{book.price}}</strong> примерная цена книги</p>
+
+        <strong>Жанры:
+            {% for c in genres%}
+         {{c.name }},
+        {% endfor %}</strong>
+        {{book.description|linebreaks}}
+    </div>
+
+{% endblock %}

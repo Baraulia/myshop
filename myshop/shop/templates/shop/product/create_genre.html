@@ -1,0 +1,10 @@
+{% extends "shop/base.html"%}
+{%load static%}
+{% block content %}
+<form class="form_category" action="{% url 'shop:genre'%}  " method="POST">
+    {% csrf_token %}
+    <p>Создание жанра книги</p>
+        {{form}}
+    <button>Создать жанр</button>
+</form>
+{% endblock %}

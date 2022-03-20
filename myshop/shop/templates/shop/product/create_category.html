@@ -1,0 +1,10 @@
+{% extends "shop/base.html"%}
+{%load static%}
+{% block content %}
+<form class="form_category" action="{% url 'shop:category'%}  " method="POST">
+    {% csrf_token %}
+    <p>Создание категории товара</p>
+        {{form}}
+    <button>Создать категорию</button>
+</form>
+{% endblock %}

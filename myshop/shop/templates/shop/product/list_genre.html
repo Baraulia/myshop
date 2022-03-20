@@ -1,0 +1,45 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block title %}
+    {% if category %}{{ category.name }}{% else %}Product{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="sidebar">
+    <h3>Жанры</h3>
+        <ul class="navbar">
+            <li {% if not ganr %} class="selected" {% endif %}>
+
+                <a href="{%url 'shop:book_list'%}">Все жанры</a>
+            </li>
+             {% for c in genris %}
+                 <li {% if ganr.slug == c.slug %} class="selected"{% endif %}>
+                     <a href="{% url 'shop:book_list' genre_slug=c.slug %}">{{c.name}}</a>
+                 </li>
+             {% endfor %}
+        </ul>
+
+</div>
+
+
+<div id="main" class="product-list">
+        <h1> {% if ganr %}{{ ganr.name }}{% else %}Все жанры{% endif %}</h1>
+        {% for book in books %}
+        <div class="item">
+            <div>
+            <a  href="{{ book.get_absolute_url }}">
+                <img class="item-img" src="{% if book.image %}{{ book.image.url }} {% else %}{% static 'img/no_image.png' %}{% endif %}" alt="">
+            </a>
+            </div>
+            <div class="item-text">
+                <h3>{{book.name}}</h3>
+            <a href="{{ book.get_absolute_url }}">{{ book.name }}</a><br>
+                <h3>${{ book.price }}</h3>>
+                <div class="text-prev">{{book.description}}</div>
+            </div>
+        </div>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

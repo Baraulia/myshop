@@ -1,0 +1,43 @@
+{% extends "shop/base.html"%}
+{%load static%}
+{% block content %}
+<div class="messages">
+    <h1>Последние новости</h1>
+    {% for m in messages %}
+    <div class="message">
+        <div class="message-author">Автор: {{m.author}}</div>
+        <a href="{{ m.get_absolute_url }}"><img class="message-img" src="{% if m.image %}{{ m.image.url }}
+                            {% else %}{% static 'img/no_image.png' %}{% endif %}" alt=""></a>
+        <div class="message-content">{{m.content}}</div>
+        <div><p  class="message-created">Дата публикации: {{m.created}}</p></div>
+
+    </div>
+    {% endfor %}
+    <div>
+        {% if page.has_previous %}
+        <a href="?page={{ page.previous_page_number }}">Назад</a>
+         &nbsp;&nbsp;|&nbsp;&nbsp;
+        {% endif %}
+        Страница №{{ page.number }} из {{ page.paginator.num_pages }}
+        {% if page.has_next %}
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        <a href="?page={{ page.next_page_number }}"> Вперед </a>
+        {% endif %}
+    </div>
+</div>
+    <div class="form_blog">
+        {% if user.is_authenticated %}
+
+<form class='form_product' action="{% url 'shop:blog'%}  " enctype="multipart/form-data" method="POST">
+    {% csrf_token %}
+    <p>{{user.username}}, добавьте новую запись в блог</p>
+        {{form_blog}}
+    <button>Добавить запись</button>
+</form>
+        {% else %}
+        <div>
+            <p>Только зарегистрированные пользователи могут добавлять новости. <a href="{% url 'shop:login'%}">Зарегистрируйтесь или войдите под своим логином</a></p>
+        </div>
+        {%endif%}
+    </div>
+{% endblock %}

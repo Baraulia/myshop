@@ -1,0 +1,23 @@
+{% extends "shop/base.html"%}
+{%load static%}
+{% block content %}
+<form class='form_product' action="{% url 'shop:product'%}  " enctype="multipart/form-data" method="POST">
+    {% csrf_token %}
+    <p>Добавьте новый продукт, заполнив форму</p>
+        {{form_product.as_table}}
+<!--    {% for f in form_product%}-->
+
+<!--    <label class="id_{{f.name}}">{{f.label}}{{f}}</label>-->
+
+
+
+<!--    {%endfor%}-->
+
+
+
+<!--    <label class="qwert" >Имя продукта{{form_product.name}}</label>-->
+
+
+    <button>Добавить продукт</button>
+</form>
+{% endblock %}

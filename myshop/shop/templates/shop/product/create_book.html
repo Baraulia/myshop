@@ -1,0 +1,13 @@
+{% extends "shop/base.html"%}
+{%load static%}
+{% block content %}
+<form class='form_product' action="{% url 'shop:book'%}  " enctype="multipart/form-data" method="POST">
+    {% csrf_token %}
+    <p>Добавьте новую книгу, заполнив форму</p>
+        {{form_book}}
+
+
+
+    <button>Добавить книгу</button>
+</form>
+{% endblock %}
